@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up Form</title>
+    <style>
+       
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #344E41; /* Dark green background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #DAD7CD; /* White container */
+            border-radius: 30px; /* More rounded corners */
+            overflow: hidden;
+            display: flex;
+            width: 800px; /* Increased width */
+            height: 400px; /* Increased height */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .left-section {
+            background-color: #f5f5f5; /* Light gray */
+            width: 60%;
+            padding: 40px; /* Increased padding */
+        }
+
+        .right-section {
+            background-color: #588157; /* Green */
+            color: white;
+            width: 40%;
+            padding: 40px; /* Increased padding */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .icon {
+            width: 80px; /* Larger icon */
+            height: 80px; /* Larger icon */
+            border: 3px solid #ccc;
+            border-radius: 15px; /* More rounded */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px; /* Increased spacing */
+            margin-left: +160px;
+        }
+
+        .icon svg {
+            width: 50px; /* Larger SVG */
+            height: 50px; /* Larger SVG */
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px; /* Increased padding */
+            margin-bottom: 25px; /* Increased spacing */
+            border: 2px solid #ccc; /* Thicker border */
+            border-radius: 15px; /* More rounded */
+            font-size: 18px; /* Larger text */
+        }
+
+        .description {
+            font-size: 20px; 
+            line-height: 1.6;
+        }
+        
+        .signup-button {
+            background-color: #A3B18A; /* Darker green */
+            color: white;
+            border: none;
+            padding: 15px 30px; /* Increased padding */
+            border-radius: 20px; /* More rounded */
+            cursor: pointer;
+            font-size: 18px; 
+        }
+
+        .signup-button:hover {
+            background-color: #344E41; /* Even darker green on hover */
+        }
+    </style>
+    
+</head>
+<body>
+    <div class="container">
+        <!-- Left Section -->
+        <div class="left-section">
+            <div class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                </svg>
+            </div>
+            <label for="username">Username</label>
+            <input type="text" id="username" class="input-field" placeholder="Enter your username">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" class="input-field" placeholder="Enter your password">
+        </div>
+
+        <!-- Right Section -->
+        <div class="right-section">
+            <p class="description">
+                description, <br>
+                more details here, <br>
+                etc.
+            </p>
+            <button class="signup-button">Sign up</button>
+        </div>
+    </div>
+</body>
+</html>

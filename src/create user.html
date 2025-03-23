@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create User</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #344E41; /* Dark green-gray background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #DAD7CD; /* Light beige container */
+            border-radius: 20px; /* Rounded corners */
+            overflow: hidden;
+            width: 500px; /* Container width */
+            padding: 40px; /* Padding inside the container */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 15px; /* Padding inside the input field */
+            margin-bottom: 20px; /* Spacing between inputs */
+            border: 2px solid #ccc; /* Border for inputs */
+            border-radius: 10px; /* Rounded corners for inputs */
+            font-size: 16px; /* Font size for inputs */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end; /* Align button to the right */
+            
+        }
+
+        .create-user-button {
+            background-color: #A3B18A; /* Soft green */
+            color: white;
+            border: none;
+            padding: 10px 20px; /* Button padding */
+            border-radius: 20px; /* Rounded corners for button */
+            cursor: pointer;
+            font-size: 16px; /* Font size for button text */
+            
+        }
+
+        .create-user-button:hover {
+            background-color: #344E41; /* Dark green-gray on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Input Fields -->
+        <label for="username">create user name</label>
+        <input type="text" id="username" class="input-field" placeholder="Enter your username">
+
+        <label for="password">create password</label>
+        <input type="password" id="password" class="input-field" placeholder="Enter your password">
+
+        <label for="confirm-password">retype password</label>
+        <input type="password" id="confirm-password" class="input-field" placeholder="Retype your password">
+
+        <!-- Button Container -->
+        <div class="button-container">
+            <button class="create-user-button">create user</button>
+        </div>
+    </div>
+</body>
+</html>

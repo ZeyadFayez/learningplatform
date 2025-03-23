@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found</title>
+    <style>
+        /* Reset some default styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #344E41; /* Dark green-gray background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #DAD7CD; /* Light beige container */
+            border-radius: 20px; /* Rounded corners */
+            overflow: hidden;
+            width: 500px; /* Container width */
+            padding: 40px; /* Padding inside the container */
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1); /* Shadow for depth */
+            display: flex;
+            align-items: center; /* Vertically center content */
+        }
+
+        .icon {
+            width: 80px; /* Icon size */
+            height: 80px; /* Icon size */
+            border: 2px solid #ccc; /* Border for the icon */
+            border-radius: 15px; /* Rounded corners for the icon */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 20px; /* Spacing between icon and text */
+        }
+
+        .icon svg {
+            width: 50px; /* SVG size */
+            height: 50px; /* SVG size */
+        }
+
+        .error-message {
+            font-size: 20px; /* Font size for the error message */
+            line-height: 1.5; /* Line height for better readability */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Icon -->
+        <div class="icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+            </svg>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message">
+            Opps, page<br>
+            was not found
+        </div>
+    </div>
+</body>
+</html>
