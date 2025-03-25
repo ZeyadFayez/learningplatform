@@ -2,7 +2,7 @@ import { Provider } from "@/components/ui/provider"
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
-import { Button } from "@chakra-ui/react"
+
 import CreatePage from "./pages/createpage.jsx";
 import HomePage from "./pages/homepage.jsx";
 

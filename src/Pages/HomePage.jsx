@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button, HStack } from "@chakra-ui/react";
 
 const HomePage = () => {
   console.log("HomePage component rendered");
@@ -11,9 +12,9 @@ const HomePage = () => {
               <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
             </svg>
           </div>
-          <label htmlFor="username">Username</label>
+         
           <input type="text" id="username" style={styles.inputField} placeholder="Enter your username" />
-          <label htmlFor="password">Password</label>
+          
           <input type="password" id="password" style={styles.inputField} placeholder="Enter your password" />
         </div>
         <div style={styles.rightSection}>
@@ -22,7 +23,11 @@ const HomePage = () => {
             more details here, <br />
             etc.
           </p>
-          <button  style={styles.signupButton}>Sign up</button>
+          <HStack wrap="wrap" gap="6">
+          <Button colorScheme="green" variant="outline" size="lg" borderRadius="20px">
+            Sign up
+          </Button>
+          </HStack>
         </div>
       </div>
     </div>
@@ -51,7 +56,7 @@ const styles = {
     boxShadow: '0 6px 10px rgba(0, 0, 0, 0.1)',
   },
   leftSection: {
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#DAD7CD',
     width: '60%',
     padding: '40px',
   },
@@ -90,18 +95,6 @@ const styles = {
   description: {
     fontSize: '20px',
     lineHeight: '1.6',
-  },
-  signupButton: {
-    backgroundColor: '#A3B18A',
-    color: 'white',
-    border: 'none',
-    padding: '15px 30px',
-    borderRadius: '20px',
-    cursor: 'pointer',
-    fontSize: '18px',
-  },
-  signupButtonHover: {
-    backgroundColor: '#344E41',
   },
 };
 
