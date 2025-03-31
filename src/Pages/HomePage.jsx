@@ -1,20 +1,23 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button, HStack } from "@chakra-ui/react";
+import icon from './icons8-logo-50.png';
 
 const HomePage = () => {
-  console.log("HomePage component rendered");
+  const navigate = useNavigate(); // Hook for navigation
+
+  const handleSignUp = () => {
+    navigate('/dashboard'); // Navigate to the target page
+  };
+
   return (
     <div style={styles.body}>
       <div style={styles.container}>
         <div style={styles.leftSection}>
           <div style={styles.icon}>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style={styles.svg}>
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-            </svg>
+            <img src={icon} alt="icon" style={styles.svg} />
           </div>
-         
           <input type="text" id="username" style={styles.inputField} placeholder="Enter your username" />
-          
           <input type="password" id="password" style={styles.inputField} placeholder="Enter your password" />
         </div>
         <div style={styles.rightSection}>
@@ -23,16 +26,22 @@ const HomePage = () => {
             more details here, <br />
             etc.
           </p>
-          <HStack wrap="wrap" gap="6">
-          <Button colorScheme="green" variant="outline" size="lg" borderRadius="20px">
-            Sign up
-          </Button>
+          <HStack wrap="wrap" gap="6" style={styles.signup}>
+            <Button
+              colorScheme="green"
+              variant="outline"
+              size="lg"
+              borderRadius="20px"
+              onClick={handleSignUp} // Add click handler
+            >
+              Sign up
+            </Button>
           </HStack>
         </div>
       </div>
     </div>
   );
-}
+};
 
 const styles = {
   body: {
@@ -72,7 +81,7 @@ const styles = {
   icon: {
     width: '80px',
     height: '80px',
-    border: '3px solid #ccc',
+   
     borderRadius: '15px',
     display: 'flex',
     justifyContent: 'center',
@@ -87,7 +96,8 @@ const styles = {
   inputField: {
     width: '100%',
     padding: '15px',
-    marginBottom: '25px',
+     marginTop: '20px',
+    marginBottom: '35px',
     border: '2px solid #ccc',
     borderRadius: '15px',
     fontSize: '18px',
@@ -95,6 +105,11 @@ const styles = {
   description: {
     fontSize: '20px',
     lineHeight: '1.6',
+  },
+  signup: {
+    alignSelf: 'flex-end', // Align the button to the right
+    marginTop: '-30px', // Adjust upward alignment to match the password
+    
   },
 };
 
