@@ -19,7 +19,7 @@ const footer = () => {
     
         
         <Text fontSize="lg" ml={2} color="#DAD7CD">
-          © 2023 fritz. All rights reserved.
+          © 2025 fritz. All rights reserved.
         </Text>
       
     </Flex>

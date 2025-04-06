@@ -1,27 +1,27 @@
-import { Provider } from "@/components/ui/provider"
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom'
-import Dashboard from "./Pages/dashboard.jsx"
-//import CreatePage from "./pages/createpage.jsx";
-import HomePage from "./pages/homepage.jsx";
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Provider } from "@/components/ui/provider";
 import { Toaster } from "@/components/ui/toaster";
 
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import Dashboard from "./Pages/dashboard.jsx";
+import Signup from "./Pages/signup.jsx";
+import Login from "./Pages/login.jsx";
+import HomePage from "./Pages/HomePage.jsx"; // Correct import for HomePage
 
-import App from './App.jsx'
-
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider>
-      <BrowserRouter>
-      <Toaster />
+      <Router>
+        <Toaster />
         <Routes>
-
-          <Route path="/" element={<HomePage />} />
-          <Route path="/Dashboard" element={<Dashboard />} />
+          {/* Define routes for each page */}
+          <Route path="/" element={<Login />} />
+          <Route path="/homepage/Dashboard" element={<Dashboard />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/homepage" element={<HomePage />} /> {/* Correct path */}
         </Routes>
-    </BrowserRouter>
+      </Router>
     </Provider>
-  </StrictMode>,
-)
+  </StrictMode>
+);

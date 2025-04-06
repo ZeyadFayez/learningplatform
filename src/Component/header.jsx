@@ -21,6 +21,9 @@ const header = () => {
         <RouterLink to="/" style={{ color: "white", textDecoration: "none" }} >
           Log Out
         </RouterLink>
+        <RouterLink to="/homepage/Dashboard" style={{ color: "white", textDecoration: "none" }} >
+          dashboard
+        </RouterLink>
       </Flex>
     </Flex>
   );

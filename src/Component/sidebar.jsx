@@ -22,12 +22,12 @@ const Sidebar = () => {
       overflowY="auto"
     >
       <Stack gap="40px" color="#DAD7CD" mt={30}>
-        {/* Display expanded items */}
+      
         <Text fontWeight="medium" fontSize={30}>
           other courses {value.join(", ")}
         </Text>
 
-        {/* Accordion Component */}
+        
         <Accordion.Root value={value} onValueChange={(e) => setValue(e.value)} >
           {items.map((item, index) => (
             <Accordion.Item key={index} value={item.value} >
@@ -37,7 +37,7 @@ const Sidebar = () => {
               </Accordion.ItemTrigger>
               <Accordion.ItemContent >
                 <Accordion.ItemBody >
-                  {/* Wrap the text with RouterLink */}
+                  
                   <RouterLink to={item.link} style={{ color: "#DAD7CD", textDecoration: "none" }}>
                     {item.text}
                   </RouterLink>
@@ -47,7 +47,7 @@ const Sidebar = () => {
           ))}
         </Accordion.Root>
         
-        {/* Box to Wrap Enrolled Courses */}
+        
         <Box mt={100} p={4} bg="#3A5A40" borderRadius="md" boxShadow="lg">
           <Text fontWeight="bold" fontSize={30} mb={4} color="#DAD7CD">
             Enrolled Courses
@@ -78,14 +78,14 @@ const Sidebar = () => {
   );
 };
 
-// Data for accordion items
+
 const items = [
   { value: "data structures", title: "data structures", text: "Learn Data Structures with Python", link: "/" },
   { value: "opp", title: "opp", text: "Learn OOP with Java", link: "/oop-java" },
   { value: "ui/ux", title: "ui/ux with figma", text: "Learn UI/UX with Figma", link: "/ui-ux" },
 ];
 
-// Data for enrolled courses
+
 const enrolledCourses = [
   { title: "React Basics", description: "Learn the basics of React.js", link: "/react-basics" },
   { title: "Advanced CSS", description: "Master advanced CSS techniques", link: "/advanced-css" },
