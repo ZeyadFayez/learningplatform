@@ -15,12 +15,13 @@ const footer = () => {
       bottom="0" // Stick to the bottom
       width="100%" // Make it span the full width of the page
     >
-      <box>
-        <img src={icon} alt="Logo" width="40px" height="40px"    />
+      <img src={icon} alt="Logo" mr={"auto"} width="40px" height="40px"    />
+    
+        
         <Text fontSize="lg" ml={2} color="#DAD7CD">
           © 2023 fritz. All rights reserved.
         </Text>
-      </box>
+      
     </Flex>
   );
 };
