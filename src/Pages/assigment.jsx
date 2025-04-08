@@ -14,7 +14,7 @@ const assigment = () => {
         
         <Box display="flex" flexDirection="row">
         <Sidebar />
-        < MainContent/>
+        
         </Box>
   
        
