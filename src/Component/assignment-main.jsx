@@ -6,7 +6,6 @@ import {
   Text,
   Heading,
   Button,
-  Avatar,
 } from "@chakra-ui/react";
 import { FaFolder, FaUser, FaQuoteRight } from "react-icons/fa"; // Updated icons
 
