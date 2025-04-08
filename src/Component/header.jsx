@@ -7,7 +7,7 @@ import { chakra } from "@chakra-ui/react"
 
 const header = () => {
   return (
-    <Flex bg="#344E41" color="white" p={8}  alignItems="center" >
+    <Flex bg="#344E41" color="white" p={8}  alignItems="center"   >
       <Box mr={6}> {/* Increase spacing between the logo and the site name */}
         <img src={icon} alt="Logo" width="40px" height="40px"  />
       </Box>
@@ -23,6 +23,9 @@ const header = () => {
         </RouterLink>
         <RouterLink to="/homepage/Dashboard" style={{ color: "white", textDecoration: "none" }} >
           dashboard
+        </RouterLink>
+        <RouterLink to="/homepage/Dashboard/assigment" style={{ color: "white", textDecoration: "none" }} >
+        assigment
         </RouterLink>
       </Flex>
     </Flex>

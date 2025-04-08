@@ -3,7 +3,7 @@ import React from "react";
 import { Box } from "@chakra-ui/react";
 import Header from "../Component/header";
 import Sidebar from "../Component/sidebar";
-import MainContent from "../Component/maincon";
+import MainContent from "../Component/dash-maincon";
 import Footer from "../Component/footer";
 
 const Dashboard = () => {

@@ -5,6 +5,7 @@ import Sidebar from "../Component/sidebar";
 import Homemaincon from "../Component/home-maincon";
 import React from "react";
 
+
 const HomePage = () => {
   return (
     <Box minH="100vh" bg="#DAD7CD">
@@ -13,7 +14,7 @@ const HomePage = () => {
 
       {/* Top Section with Image, Site Name, and Description */}
       <Box textAlign="center" p={8} bg="#344E41" color="white">
-        
+      
         <Text fontSize="4xl" fontWeight="bold" mb={2}>
           Welcome to Fritz Learning Platform
         </Text>
@@ -26,7 +27,7 @@ const HomePage = () => {
       <Flex overflowY="auto" mt={4}>
         {/* Sidebar */}
         
-          <Sidebar />
+          
       
 
         {/* Homemaincon */}
