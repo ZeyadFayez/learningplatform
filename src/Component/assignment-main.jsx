@@ -7,7 +7,7 @@ import {
   Heading,
   Button,
 } from "@chakra-ui/react";
-import { FaFolder, FaUser, FaQuoteRight } from "react-icons/fa"; // Updated icons
+import { FaFolder, FaUser, FaQuoteRight } from "react-icons/fa";
 
 const AssignmentMain = () => {
   return (
@@ -31,7 +31,7 @@ const AssignmentMain = () => {
           justify="space-around"
         >
           <Button
-            leftIcon={<FaFolder />} // Updated icon
+            leftIcon={<FaFolder />}
             variant="ghost"
             colorScheme="green"
             fontWeight="bold"
@@ -39,7 +39,7 @@ const AssignmentMain = () => {
             Assignments
           </Button>
           <Button
-            leftIcon={<FaUser />} // Updated icon
+            leftIcon={<FaUser />}
             variant="ghost"
             colorScheme="green"
             fontWeight="bold"
@@ -47,7 +47,7 @@ const AssignmentMain = () => {
             Profile
           </Button>
           <Button
-            leftIcon={<FaQuoteRight />} // Updated icon
+            leftIcon={<FaQuoteRight />}
             variant="ghost"
             colorScheme="green"
             fontWeight="bold"
@@ -66,9 +66,6 @@ const AssignmentMain = () => {
               <Text mt={2} color="white">
                 Description of Assignment 1. Due date: 2025-04-15.
               </Text>
-              <Button mt={4} colorScheme="teal">
-                View Details
-              </Button>
             </Box>
 
             <Box bg="#588157" p={4} borderRadius="md" boxShadow="md">
@@ -78,9 +75,6 @@ const AssignmentMain = () => {
               <Text mt={2} color="white">
                 Description of Assignment 2. Due date: 2025-04-20.
               </Text>
-              <Button mt={4} colorScheme="teal">
-                View Details
-              </Button>
             </Box>
           </Flex>
         </Box>
@@ -88,7 +82,6 @@ const AssignmentMain = () => {
         {/* Profile Tab */}
         <Box mt={8}>
           <Flex direction="column" align="center" gap={4}>
-           
             <Heading size="md">John Doe</Heading>
             <Text>Email: johndoe@example.com</Text>
             <Button colorScheme="teal">Edit Profile</Button>
@@ -99,8 +92,7 @@ const AssignmentMain = () => {
         <Box mt={8} bg="#344E41" p={4} borderRadius="md" color="white">
           <Heading size="md">Feedback</Heading>
           <Text mt={2}>
-            We value your feedback. Please let us know how we can improve your
-            experience.
+            If you think there was a mistake in the assignment Grading, please provide your feedback below.
           </Text>
           <Button mt={4} colorScheme="teal">
             Submit Feedback
