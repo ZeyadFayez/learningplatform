@@ -1,6 +1,6 @@
 // src/App.jsx
 import React from "react";
-import { Box } from "@chakra-ui/react";
+import {Box}  from "@chakra-ui/react";
 import Header from "../Component/header";
 import Sidebar from "../Component/sidebar";
 import MainContent from "../Component/dash-maincon";

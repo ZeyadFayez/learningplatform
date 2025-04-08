@@ -1,9 +1,9 @@
 import React from 'react';
 import Header from '../Component/header';
 import Footer from '../Component/footer';
-import Sidebar from '../Component/sidebar';
-import MainContent from '../Component/home-maincon.jsx'; // Adjust the import path as needed
-import { Container, Box } from '@chakra-ui/react';
+import Sidebar from '../Component/assignment-sidebar';
+import { Box } from '@chakra-ui/react';
+import AssignmentMain from '../Component/assignment-main'; // Adjust the import path as needed
 
 const assigment = () => {
     return(
@@ -14,6 +14,7 @@ const assigment = () => {
         
         <Box display="flex" flexDirection="row">
         <Sidebar />
+         <AssignmentMain />
         
         </Box>
   
@@ -21,6 +22,7 @@ const assigment = () => {
         <Footer />
       </Box>
     );
+
 }
 
 export default assigment;
