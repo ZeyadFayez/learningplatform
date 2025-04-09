@@ -1,10 +1,7 @@
-import { Box, Text, Stack, Heading, Badge, Button } from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Text, Stack, Heading, Button } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 
-const Sidebar = () => {
-  const [showGrades, setShowGrades] = useState(false); // State to toggle visibility
-
+const FeedbackSidebar = () => {
   return (
     <Box
       bg="#588157"
@@ -20,13 +17,13 @@ const Sidebar = () => {
       boxShadow="xl"
       _hover={{ boxShadow: "2xl", transform: "scale(1.02)", transition: "0.3s" }}
     >
-        
-      {/* Quick Actions Section */}
+      {/* Feedback Sidebar Header */}
       <Heading size="md" color="white" mb={4} textAlign="center" textShadow="1px 1px #344E41">
-        Quick Actions
+        Feedback Center
       </Heading>
+
       <Stack spacing={6}>
-        {/* Upcoming Assignments */}
+        {/* Submit Feedback Section */}
         <Box
           bg="#A3B18A"
           p={4}
@@ -35,17 +32,24 @@ const Sidebar = () => {
           _hover={{ bg: "#94A889", transform: "scale(1.02)", transition: "0.3s" }}
         >
           <Text color="white" fontWeight="bold" fontSize="lg">
-            Upcoming Assignments
+            Submit Feedback
           </Text>
           <Text color="white" mt={2}>
-            Assignment 1: Due 2025-04-15
+            Share your thoughts about the assignments or the platform.
           </Text>
-          <Text color="white" mt={1}>
-            Assignment 2: Due 2025-04-20
-          </Text>
+          <Button
+            as={RouterLink}
+            to="/submit-feedback"
+            colorScheme="teal"
+            variant="solid"
+            mt={4}
+            w="100%"
+          >
+            Submit Now
+          </Button>
         </Box>
 
-        {/* Assignment Progress */}
+        {/* Recent Feedback Section */}
         <Box
           bg="#344E41"
           p={4}
@@ -54,23 +58,27 @@ const Sidebar = () => {
           _hover={{ bg: "#2F463B", transform: "scale(1.02)", transition: "0.3s" }}
         >
           <Text color="white" fontWeight="bold" fontSize="lg">
-            Assignment Progress
+            Recent Feedback
           </Text>
           <Text color="white" mt={2}>
-            Assignment 1: 70% Complete
+            "Great platform, but the grading system could be improved."
           </Text>
-          <Badge colorScheme="teal" mt={1}>
-            On Track
-          </Badge>
-          <Text color="white" mt={3}>
-            Assignment 2: 40% Complete
+          <Text color="white" mt={1}>
+            "I love the assignments, but the deadlines are too tight."
           </Text>
-          <Badge colorScheme="orange" mt={1}>
-            Needs Attention
-          </Badge>
+          <Button
+            as={RouterLink}
+            to="/recent-feedback"
+            colorScheme="teal"
+            variant="outline"
+            mt={4}
+            w="100%"
+          >
+            View All
+          </Button>
         </Box>
 
-        {/* Upcoming Grades (Hidden by Default) */}
+        {/* Feedback Guidelines Section */}
         <Box
           bg="#A3B18A"
           p={4}
@@ -78,32 +86,26 @@ const Sidebar = () => {
           boxShadow="lg"
           _hover={{ bg: "#94A889", transform: "scale(1.02)", transition: "0.3s" }}
         >
+          <Text color="white" fontWeight="bold" fontSize="lg">
+            Feedback Guidelines
+          </Text>
+          <Text color="white" mt={2}>
+            Learn how to provide constructive feedback to improve the platform.
+          </Text>
           <Button
-            onClick={() => setShowGrades(!showGrades)}
+            as={RouterLink}
+            to="/feedback-guidelines"
             colorScheme="teal"
             variant="solid"
+            mt={4}
             w="100%"
-            mb={2}
           >
-            {showGrades ? "Hide Upcoming Grades" : "Show Upcoming Grades"}
+            Learn More
           </Button>
-          {showGrades && (
-            <Box mt={2}>
-              <Text color="white" fontWeight="bold" fontSize="lg">
-                Upcoming Grades
-              </Text>
-              <Text color="white" mt={2}>
-                Assignment 1: Expected Grade - A
-              </Text>
-              <Text color="white" mt={1}>
-                Assignment 2: Expected Grade - B+
-              </Text>
-            </Box>
-          )}
         </Box>
       </Stack>
     </Box>
   );
 };
 
-export default Sidebar;
+export default FeedbackSidebar;
