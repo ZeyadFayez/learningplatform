@@ -1,34 +1,63 @@
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../Component/header";
 import Footer from "../Component/footer";
-import { Box, Flex, Text, Image } from "@chakra-ui/react";
-import Sidebar from "../Component/sidebar";
-import Homemaincon from "../Component/home-maincon";
-import React from "react";
+import { Box, Flex, Text, Button } from "@chakra-ui/react";
 
+import Homemaincon from "../Component/home-maincon";
+
+// Example Context
+const UserContext = React.createContext();
 
 const HomePage = () => {
+  
+
+
+
+  const [welcomeMessage, setWelcomeMessage] = useState("Welcome to Fritz Learning Platform");
+
+  // Access user data from context
+  const user = useContext(UserContext);
+
+  // Effect to update the document title
+  useEffect(() => {
+    document.title = "Home Page - Fritz Learning Platform";
+  }, []);
+
+  // Effect to simulate fetching data
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setWelcomeMessage("Explore our courses and resources!");
+    }, 5000);
+
+    return () => clearTimeout(timer); // Cleanup the timer
+  }, []);
+
   return (
     <Box minH="100vh" bg="#DAD7CD">
       {/* Header */}
       <Header />
 
-      {/* Top Section with Image, Site Name, and Description */}
-      <Box textAlign="center" p={8} bg="#344E41" color="white">
-      
+      {/* Top Section with Welcome Message */}
+      <Box textAlign="center" p={8} bg="#344E41" color="white"  data-state="open"
+         _open={{
+           animationName: "fade-in, scale-in",
+           animationDuration: "2000ms",
+         }}
+         _closed={{
+           animationName: "fade-out, scale-out",
+           animationDuration: "2000ms",
+         }}>
         <Text fontSize="4xl" fontWeight="bold" mb={2}>
-          Welcome to Fritz Learning Platform
+          {welcomeMessage}
         </Text>
         <Text fontSize="lg" maxW="800px" mx="auto">
-          Explore a variety of courses and resources to enhance your skills and knowledge. Scroll down to see the available courses and navigate through the sidebar.
+          {user ? `Hello, ${user.name}!` : "Sign in to personalize your experience."}
         </Text>
       </Box>
 
-      {/* Scrollable Content Section */}
-      <Flex overflowY="auto" mt={4}>
-        {/* Sidebar */}
-        
-          
-      
+      {/* Main Content Section */}
+      <Flex mt={4}>
+       
 
         {/* Homemaincon */}
         <Box flex="1" p={4}>
@@ -36,6 +65,7 @@ const HomePage = () => {
         </Box>
       </Flex>
 
+   
       {/* Footer */}
       <Footer />
     </Box>

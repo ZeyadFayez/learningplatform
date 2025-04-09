@@ -1,11 +1,20 @@
-// src/components/MainContent.jsx
+import React from "react";
 import { Tabs, Container, Flex, Box, Text, List, Heading, Button, ButtonGroup, For, Stack, Steps, Blockquote, Circle, Float } from "@chakra-ui/react";
 import { Toaster, toaster } from "@/components/ui/toaster";
 import { LuFolder, LuUser, LuQuote  } from "react-icons/lu";
 
-const MainContent = () => {
+
+const MainContent = ({ isSidebarOpen, setIsSidebarOpen }) => {
   return (
-    <Container maxW="1200px" pt="8rem" pb="4rem" px={4} bg="#DAD7CD">
+    <Container maxW="1200px" pt="8rem" pb="4rem" px={4} bg="#DAD7CD" data-state="open"
+    _open={{
+      animationName: "fade-in, scale-in",
+      animationDuration: "2000ms",
+    }}
+    _closed={{
+      animationName: "fade-out, scale-out",
+      animationDuration: "2000ms",
+    }}>
          {/* upper Flex Container */}
          <Flex bg="#A3B18A" p={4} justifyContent="center" h="150px" overflowY="auto" borderRadius="md" boxShadow="lg" mb={130} mt={-100}>
          <Blockquote.Root colorPalette="teal" ps="8">
@@ -14,7 +23,7 @@ const MainContent = () => {
           <LuQuote />
         </Circle>
       </Float>
-      <Blockquote.Content cite="best wishes">
+      <Blockquote.Content cite="best wishes" >
       "The capacity to learn is a gift; the ability to learn is a skill; the willingness to learn is a choice."
       </Blockquote.Content>
       <Blockquote.Content cite="best wishes">
@@ -24,6 +33,9 @@ const MainContent = () => {
         — <cite>best wishes</cite>
       </Blockquote.Caption>
     </Blockquote.Root>
+    <Button onClick={() => setIsSidebarOpen(!isSidebarOpen)} ml={130} variant="outline" >
+          {isSidebarOpen ? "Hide Sidebar" : "Show Sidebar"}
+        </Button>
       </Flex>
       {/* Central Container */}
       <Box bg="#344E41" p={8} mb={300} mt={-100} h="850px" overflowY="auto" borderRadius="md" boxShadow="lg">
@@ -173,7 +185,6 @@ const MainContent = () => {
           </Steps.Root>
             </Stack>
       </Box>
-    
    
     </Container>
   );

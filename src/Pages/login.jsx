@@ -5,10 +5,10 @@ import icon from './icons8-logo-50.png';
 import { Heading, Text } from "@chakra-ui/react"
 import { Link as RouterLink } from "react-router-dom";
 const HomePage = () => {
-  const navigate = useNavigate(); // Hook for navigation
+  const navigate = useNavigate(); 
 
   const login = () => {
-    navigate('/homepage'); // Navigate to the target page
+    navigate('/homepage'); 
   };
 
   return (

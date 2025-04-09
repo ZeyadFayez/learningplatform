@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom"; 
 
 const Sidebar = () => {
-  const [value, setValue] = useState(["second-item"]); // State for expanded accordion items
+  const [value, setValue] = useState(["----------"]); 
 
   return (
     <Box
@@ -20,6 +20,15 @@ const Sidebar = () => {
       borderRadius="md"
       boxShadow="lg"
       overflowY="auto"
+      data-state="open"
+         _open={{
+           animationName: "fade-in, scale-in",
+           animationDuration: "2000ms",
+         }}
+         _closed={{
+           animationName: "fade-out, scale-out",
+           animationDuration: "2000ms",
+         }}
     >
       <Stack gap="40px" color="#DAD7CD" mt={30}>
       
