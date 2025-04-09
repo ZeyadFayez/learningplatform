@@ -55,6 +55,18 @@ const header = () => {
       </Portal>
     </Menu.Root>
 
+        <RouterLink to="/" style={{ color: "white", textDecoration: "none" }} >
+          Log Out
+        </RouterLink>
+        <RouterLink to="/homepage/Dashboard" style={{ color: "white", textDecoration: "none" }} >
+          Dashboard
+        </RouterLink>
+        <RouterLink to="/homepage/Dashboard/assigment" style={{ color: "white", textDecoration: "none" }} >
+        Assigment
+        </RouterLink>
+        <RouterLink to="/homepage/Dashboard/feedback" style={{ color: "white", textDecoration: "none" }} >
+          Feedback
+        </RouterLink>
       </Flex>
     </Flex>
   );

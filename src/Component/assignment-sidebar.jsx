@@ -1,7 +1,10 @@
-import { Box, Text, Stack, Heading } from "@chakra-ui/react";
+import { Box, Text, Stack, Heading, Badge, Button } from "@chakra-ui/react";
+import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 const Sidebar = () => {
+  const [showGrades, setShowGrades] = useState(false); // State to toggle visibility
+
   return (
     <Box
       bg="#588157"
@@ -55,12 +58,18 @@ const Sidebar = () => {
           <Text color="white" mt={2}>
             Assignment 1: 70% Complete
           </Text>
+          <Badge colorScheme="teal" mt={1}>
+            On Track
+          </Badge>
           <Text color="white" mt={3}>
             Assignment 2: 40% Complete
           </Text>
+          <Badge colorScheme="orange" mt={1}>
+            Needs Attention
+          </Badge>
         </Box>
 
-        {/* Upcoming Grades */}
+        {/* Upcoming Grades (Hidden by Default) */}
         <Box
           bg="#A3B18A"
           p={4}
@@ -68,15 +77,28 @@ const Sidebar = () => {
           boxShadow="lg"
           _hover={{ bg: "#94A889", transform: "scale(1.02)", transition: "0.3s" }}
         >
-          <Text color="white" fontWeight="bold" fontSize="lg">
-            Upcoming Grades
-          </Text>
-          <Text color="white" mt={2}>
-            Assignment 1: Expected Grade - A
-          </Text>
-          <Text color="white" mt={1}>
-            Assignment 2: Expected Grade - B+
-          </Text>
+          <Button
+            onClick={() => setShowGrades(!showGrades)}
+            colorScheme="teal"
+            variant="solid"
+            w="100%"
+            mb={2}
+          >
+            {showGrades ? "Hide Upcoming Grades" : "Show Upcoming Grades"}
+          </Button>
+          {showGrades && (
+            <Box mt={2}>
+              <Text color="white" fontWeight="bold" fontSize="lg">
+                Upcoming Grades
+              </Text>
+              <Text color="white" mt={2}>
+                Assignment 1: Expected Grade - A
+              </Text>
+              <Text color="white" mt={1}>
+                Assignment 2: Expected Grade - B+
+              </Text>
+            </Box>
+          )}
         </Box>
       </Stack>
     </Box>
