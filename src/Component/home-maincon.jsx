@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Button, Card, Flex, Box, Container } from "@chakra-ui/react";
+import { Avatar, Button, Card, Flex, Box, Container, Heading, Text } from "@chakra-ui/react";
 
 const homemain = () => {
   return (
@@ -19,6 +19,41 @@ const homemain = () => {
          }}
     >
       
+       <Flex
+        bg="#a3b18a"
+        p={4}
+        justifyContent="space-between"
+        h="250px"
+        borderRadius="md"
+        boxShadow="lg"
+        mb={140}
+        data-state="open"
+        _open={{
+          animationName: "fade-in, scale-in",
+          animationDuration: "2000ms",
+        }}
+        _closed={{
+          animationName: "fade-out, scale-out",
+          animationDuration: "2000ms",
+        }}
+        
+      >
+        <Heading size="2xl">ENROLLED COURSE</Heading>
+        <Box bg="#344E41" fontWeight="bold" fontSize="sm"  mb={-100} h="130px" w={650} borderRadius={30} mt={20}   _hover={{ boxShadow: "2xl" }}
+            transition={"all 2.0s ease-in-out"}> 
+          Top Section Content
+        </Box>
+
+        <Box Box bg="#344E41" fontWeight="bold" fontSize="sm"  mb={-100} h="130px" w={650} borderRadius={30} mt={20}   _hover={{ boxShadow: "2xl" }}
+            transition={"all 0.2s ease-in-out"} > 
+          <Text> coming soon </ Text>
+        </Box>
+
+        <Box Box bg="#344E41" fontWeight="bold" fontSize="sm"  mb={-100} h="130px" w={650} borderRadius={30} mt={20}   _hover={{ boxShadow: "2xl" }}
+            transition={"all 0.2s ease-in-out"}> 
+          Top Section Content
+        </Box>
+      </Flex>
       
 
       
@@ -177,8 +212,8 @@ const homemain = () => {
          overflowY="auto" 
          flex="1" // Take up less space compared to the cards
          ml={1250}
-         mb={100}
-         mt={-650}
+         mb={150}
+         mt={-780}
          width="600px"
          position="sticky"
          shrink={100}
@@ -197,29 +232,7 @@ const homemain = () => {
         </Box>
         
         </Flex>
-        <Box
-        bg="#a3b18a"
-        p={4}
-        justifyContent="center"
-        h="150px"
-        borderRadius="md"
-        boxShadow="lg"
-        mb={140}
-        data-state="open"
-        _open={{
-          animationName: "fade-in, scale-in",
-          animationDuration: "2000ms",
-        }}
-        _closed={{
-          animationName: "fade-out, scale-out",
-          animationDuration: "2000ms",
-        }}
-        
-      >
-        <Box color="white" fontWeight="bold" fontSize="lg" textAlign="center" mb={-100}> 
-          Top Section Content
-        </Box>
-      </Box>
+       
 
     </Flex>
 
