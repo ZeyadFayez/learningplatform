@@ -4,10 +4,10 @@ import { Avatar, Button, Card, Flex, Box, Container, Heading, Text } from "@chak
 const homemain = () => {
   return (
     <Flex
-      direction="column" // Align items in a column
-      minH="100vh" // Make the Flex container span the full height of the viewport
-      justifyContent="space-between" // Space out items vertically
-      bg="#DAD7CD" // Background color
+      direction="column" 
+      minH="100vh"
+      justifyContent="space-between" 
+      bg="#DAD7CD" 
       data-state="open"
          _open={{
            animationName: "fade-in, scale-in",
@@ -39,19 +39,20 @@ const homemain = () => {
         
       >
         <Heading size="2xl">ENROLLED COURSE</Heading>
-        <Box bg="#344E41" fontWeight="bold" fontSize="sm"  mb={-100} h="130px" w={650} borderRadius={30} mt={20}   _hover={{ boxShadow: "2xl" }}
-            transition={"all 2.0s ease-in-out"}> 
-          Top Section Content
-        </Box>
-
-        <Box Box bg="#344E41" fontWeight="bold" fontSize="sm"  mb={-100} h="130px" w={650} borderRadius={30} mt={20}   _hover={{ boxShadow: "2xl" }}
+       
+        <Box Box bg="#344E41" fontWeight="bold" fontSize="sm"  mb={-100} h="130px" w={650} borderRadius={30} mt={20} p={2}  _hover={{ boxShadow: "2xl" }}
             transition={"all 0.2s ease-in-out"} > 
-          <Text> coming soon </ Text>
+          <Text > coming soon </ Text>
         </Box>
 
-        <Box Box bg="#344E41" fontWeight="bold" fontSize="sm"  mb={-100} h="130px" w={650} borderRadius={30} mt={20}   _hover={{ boxShadow: "2xl" }}
-            transition={"all 0.2s ease-in-out"}> 
-          Top Section Content
+        <Box Box bg="#344E41" fontWeight="bold" fontSize="sm"  mb={-100} h="130px" w={650} borderRadius={30} mt={20} p={2}  _hover={{ boxShadow: "2xl" }}
+            transition={"all 0.2s ease-in-out"} > 
+          <Text > coming soon </ Text>
+        </Box>
+
+        <Box Box bg="#344E41" fontWeight="bold" fontSize="sm"  mb={-100} h="130px" w={650} borderRadius={30} mt={20} p={2}  _hover={{ boxShadow: "2xl" }}
+            transition={"all 0.2s ease-in-out"} > 
+          <Text > coming soon </ Text>
         </Box>
       </Flex>
       
@@ -206,10 +207,10 @@ const homemain = () => {
          color="white" 
          p={4} 
          h="auto" // Adjust height based on content
-        
+         W="auto"
          borderRadius="md" 
          boxShadow="lg" 
-         overflowY="auto" 
+         _expanded={100}
          flex="1" // Take up less space compared to the cards
          ml={1250}
          mb={150}
@@ -232,7 +233,6 @@ const homemain = () => {
         </Box>
         
         </Flex>
-       
 
     </Flex>
 

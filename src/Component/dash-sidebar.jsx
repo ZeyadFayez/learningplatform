@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link as RouterLink } from "react-router-dom"; 
 
 const Sidebar = () => {
-  const [value, setValue] = useState(["----------"]); 
+  const [value, setValue] = useState([" "]); 
 
   return (
     <Box
