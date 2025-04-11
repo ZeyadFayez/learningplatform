@@ -233,6 +233,29 @@ const homemain = () => {
         </Box>
         
         </Flex>
+        <Box
+        bg="#a3b18a"
+        p={4}
+        justifyContent="center"
+        h="150px"
+        borderRadius="md"
+        boxShadow="lg"
+        mb={140}
+        data-state="open"
+        _open={{
+          animationName: "fade-in, scale-in",
+          animationDuration: "2000ms",
+        }}
+        _closed={{
+          animationName: "fade-out, scale-out",
+          animationDuration: "2000ms",
+        }}
+        
+      >
+        <Box color="white" fontWeight="bold" fontSize="lg" textAlign="center" mb={-100}> 
+          Top Section Content
+        </Box>
+      </Box>
 
     </Flex>
 

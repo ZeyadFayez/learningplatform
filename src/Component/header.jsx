@@ -63,14 +63,13 @@ const header = () => {
           StudentHub
           </RouterLink>
         </Box>
+
         <Box>
           <RouterLink to={"/"} style={{ textDecoration: "none", color: "red", fontWeight: "bold" }}>
             Log Out
           </RouterLink>
         </Box>
 
-       
-            
           </Menu.Content>
         </Menu.Positioner>
       </Portal>
