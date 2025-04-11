@@ -8,8 +8,8 @@ import Assigment from "./Pages/assigment.jsx";
 import Dashboard from "./Pages/dashboard.jsx";
 import Signup from "./Pages/signup.jsx";
 import Login from "./Pages/login.jsx";
-import HomePage from "./Pages/HomePage.jsx"; 
-import StudentHub from "./Pages/sutdenthub.jsx";
+import HomePage from "./Pages/HomePage.jsx"; // Correct import for HomePage
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <Provider>
@@ -22,10 +22,6 @@ createRoot(document.getElementById("root")).render(
           <Route path="/signup" element={<Signup />} />
           <Route path="/homepage" element={<HomePage />} /> 
           <Route path="/homepage/Dashboard/assigment" element={<Assigment />} />
-
-          <Route path="/homepage/Dashboard/StudentHub" element={<StudentHub />} />
-
-          
         </Routes>
       </Router>
     </Provider>
