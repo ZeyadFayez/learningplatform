@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Button, Card, Flex, Box, Container, Heading, Text } from "@chakra-ui/react";
+import { Avatar, Button, Card, Flex, Box, Container, Heading, Text, Alert, Link, Stack } from "@chakra-ui/react";
 
 const homemain = () => {
   return (
@@ -202,7 +202,7 @@ const homemain = () => {
          direction="column" 
          bg="#b6ad90" 
          color="white" 
-         p={10} 
+         p={20} 
          h="auto" // Adjust height based on content
          W="auto"
          borderRadius="md" 
@@ -211,8 +211,9 @@ const homemain = () => {
          flex="1" // Take up less space compared to the cards
          ml={1250}
          mb={150}
-         mt={-680}
-         width="900px"
+         mt={-500}
+         maxW="1200px"
+         maxH={"100vh"}
          position="sticky"
          shrink={100}
          data-state="open"
@@ -225,8 +226,21 @@ const homemain = () => {
            animationDuration: "2000ms",
          }}
          >
-        <Box  bg="#b6ad90"  h="500px" fontWeight="bold" fontSize="lg">
-          coming soon
+        <Box  bg="#b6ad90"  h="800px" fontWeight="bold" fontSize="lg"  mt={10} >
+        <Alert.Root title="Success" status="success" bg={"#22333b"}>
+        <Alert.Indicator>
+          
+        </Alert.Indicator>
+        <Alert.Content color="fg">
+          <Alert.Title>Black Friday Sale (20% off)</Alert.Title>
+          <Alert.Description>
+            Upgrade your plan to get access to the sale.
+          </Alert.Description>
+        </Alert.Content>
+        <Link alignSelf="center" fontWeight="medium">
+          Upgrade
+        </Link>
+      </Alert.Root>
         </Box>
         
         </Flex>
