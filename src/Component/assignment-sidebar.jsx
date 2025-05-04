@@ -2,7 +2,7 @@ import { Box, Text, Stack, Heading, Button, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({ assignments, calculateProgress }) => {
   const [showGrades, setShowGrades] = useState(false); // State to toggle visibility
   const [selectedAnswer, setSelectedAnswer] = useState(""); // State for trivia answer
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0); // State for the current question index
@@ -155,44 +155,37 @@ const Sidebar = () => {
           <Text color="white" fontWeight="bold" fontSize="lg">
             Assignment Progress
           </Text>
-          <Text color="white" mt={2}>
-            Assignment 1: 70% Complete
-          </Text>
-          <Box
-            bg="gray.300"
-            borderRadius="md"
-            mt={2}
-            h="8px"
-            w="100%"
-            position="relative"
-          >
-            <Box
-              bg="teal.500"
-              h="100%"
-              w="70%"
-              borderRadius="md"
-              position="absolute"
-            />
-          </Box>
-          <Text color="white" mt={4}>
-            Assignment 2: 40% Complete
-          </Text>
-          <Box
-            bg="gray.300"
-            borderRadius="md"
-            mt={2}
-            h="8px"
-            w="100%"
-            position="relative"
-          >
-            <Box
-              bg="orange.500"
-              h="100%"
-              w="40%"
-              borderRadius="md"
-              position="absolute"
-            />
-          </Box>
+          {assignments.map((assignment) => (
+            <Box key={assignment.id} mt={2}>
+              <Flex justify="space-between" align="center">
+                <Text color="white">
+                  {assignment.title}: {calculateProgress(assignment.id)}%
+                </Text>
+                {assignment.uploadedFile && (
+                  <Text color="green.300" fontSize="sm">
+                    ✓ Submitted
+                  </Text>
+                )}
+              </Flex>
+              <Box
+                bg="gray.300"
+                borderRadius="md"
+                mt={2}
+                h="8px"
+                w="100%"
+                position="relative"
+              >
+                <Box
+                  bg={assignment.isDone ? "green.500" : "teal.500"}
+                  h="100%"
+                  w={`${calculateProgress(assignment.id)}%`}
+                  borderRadius="md"
+                  position="absolute"
+                  transition="width 0.3s ease-in-out"
+                />
+              </Box>
+            </Box>
+          ))}
         </Box>
 
         {/* Trivia Section */}

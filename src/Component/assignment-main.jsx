@@ -9,19 +9,142 @@ import {
   Input,
   Textarea,
   Icon,
+  Badge,
+  SimpleGrid,
+  Link,
+  VStack,
+  IconButton,
 } from "@chakra-ui/react";
-import { FaFolder, FaUser, FaQuoteRight, FaCheckCircle } from "react-icons/fa";
+import { 
+  FaFolder, 
+  FaUpload, 
+  FaTrash, 
+  FaCheckCircle, 
+  FaLightbulb,
+  FaRegThumbsUp,
+  FaComments,
+  FaDownload, 
+  FaBook, 
+  FaVideo, 
+  FaFile,
+  FaFilePdf 
+} from "react-icons/fa";
 
-const AssignmentMain = () => {
-  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false); // State to toggle feedback form
-  const [feedback, setFeedback] = useState(""); // State for feedback text
-  const [email, setEmail] = useState(""); // State for email input
+const AssignmentMain = ({ assignments, setAssignments }) => {
+  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const [feedback, setFeedback] = useState("");
+  const [email, setEmail] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [activeTab, setActiveTab] = useState("assignments");
 
-  // State to track completion status of assignments
-  const [assignments, setAssignments] = useState([
-    { id: 1, title: "Assignment 1", description: "Description of Assignment 1. Due date: 2025-04-15.", isDone: false },
-    { id: 2, title: "Assignment 2", description: "Description of Assignment 2. Due date: 2025-04-20.", isDone: false },
+  // Add new state for course materials
+  const [courseMaterials, setCourseMaterials] = useState([
+    {
+      id: 1,
+      assignmentId: 1,
+      type: "pdf",
+      name: "Lecture Notes Week 1",
+      url: "/api/materials/lecture-1.pdf",
+      icon: FaFilePdf,
+      size: "2.4 MB"
+    },
+    {
+      id: 2,
+      assignmentId: 1,
+      type: "video",
+      name: "Video Tutorial",
+      url: "/api/materials/tutorial-1.mp4",
+      icon: FaVideo,
+      size: "45 MB"
+    },
+    {
+      id: 3,
+      assignmentId: 2,
+      type: "pdf",
+      name: "Reading Material",
+      url: "/api/materials/reading-2.pdf",
+      icon: FaFilePdf,
+      size: "1.8 MB"
+    }
   ]);
+
+  // File upload handler
+  const handleFileUpload = (assignmentId) => {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = '.pdf,.doc,.docx';
+    fileInput.onchange = (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        if (file.size > 10 * 1024 * 1024) {
+          alert("File size should be less than 10MB");
+          return;
+        }
+        setSelectedFile(file);
+        setAssignments(prevAssignments =>
+          prevAssignments.map(assignment => {
+            if (assignment.id === assignmentId) {
+              return {
+                ...assignment,
+                uploadedFile: file.name,
+                uploadDate: new Date().toLocaleDateString(),
+                fileSize: (file.size / 1024 / 1024).toFixed(2) + " MB"
+              };
+            }
+            return assignment;
+          })
+        );
+      }
+    };
+    fileInput.click();
+  };
+
+  // Handle removing uploaded file
+  const handleRemoveFile = (assignmentId) => {
+    setAssignments(prevAssignments =>
+      prevAssignments.map(assignment => {
+        if (assignment.id === assignmentId) {
+          return {
+            ...assignment,
+            uploadedFile: null,
+            uploadDate: null,
+            fileSize: null
+          };
+        }
+        return assignment;
+      })
+    );
+  };
+
+  // Calculate progress for an assignment
+  const calculateProgress = (assignmentId) => {
+    const assignment = assignments.find(a => a.id === assignmentId);
+    if (!assignment) return 0;
+    const completedMaterials = assignment.materials.filter(m => m.isComplete).length;
+    return Math.round((completedMaterials / assignment.materials.length) * 100);
+  };
+
+  // Material status handler
+  const toggleMaterialStatus = (assignmentId, materialId) => {
+    setAssignments(prevAssignments =>
+      prevAssignments.map(assignment => {
+        if (assignment.id === assignmentId) {
+          const updatedMaterials = assignment.materials.map(material => {
+            if (material.id === materialId) {
+              return { ...material, isComplete: !material.isComplete };
+            }
+            return material;
+          });
+          return {
+            ...assignment,
+            materials: updatedMaterials,
+            isDone: updatedMaterials.every(m => m.isComplete)
+          };
+        }
+        return assignment;
+      })
+    );
+  };
 
   // Handle marking an assignment as done
   const toggleAssignmentStatus = (id) => {
@@ -37,32 +160,41 @@ const AssignmentMain = () => {
     setIsFeedbackOpen(false); // Close the feedback form after submission
   };
 
+  // Function to handle material download
+  const handleDownload = async (material) => {
+    try {
+      // This would be replaced with your actual API call
+      const response = await fetch(material.url);
+      if (!response.ok) throw new Error('Download failed');
+      
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = material.name;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error('Download failed:', error);
+      alert('Failed to download the material. Please try again.');
+    }
+  };
+
   return (
-    <Container
-      maxW="1200px"
-      py={8}
-      bgGradient="linear(to-r, #DAD7CD, #A3B18A)"
-      borderRadius="lg"
-      boxShadow="xl"
-      animation="fadeIn 1s ease-in-out"
-      sx={{
-        "@keyframes fadeIn": {
-          from: { opacity: 0, transform: "translateY(50px)" },
-          to: { opacity: 1, transform: "translateY(0)" },
-        },
-      }}
-    >
+    <Container maxW="1200px" py={8}>
       {/* Header Section */}
       <Box bg="#344E41" color="white" p={6} borderRadius="md" mb={6} textAlign="center">
         <Heading size="lg" textShadow="1px 1px #000">
           Assignment Dashboard
         </Heading>
         <Text mt={2} fontSize="lg">
-          Manage your assignments and track your progress.
+          Manage your assignments and track your progress
         </Text>
       </Box>
 
-      {/* Tabs Section */}
+      {/* Simplified Navigation */}
       <Box>
         <Flex
           borderBottom="1px solid"
@@ -81,68 +213,159 @@ const AssignmentMain = () => {
             Assignments
           </Button>
           <Button
-            leftIcon={<FaUser />}
+            leftIcon={<FaComments />}
             variant="solid"
             colorScheme="green"
             fontWeight="bold"
             _hover={{ bg: "#588157", color: "white" }}
-          >
-            Profile
-          </Button>
-          <Button
-            leftIcon={<FaQuoteRight />}
-            variant="solid"
-            colorScheme="green"
-            fontWeight="bold"
-            _hover={{ bg: "#588157", color: "white" }}
+            onClick={() => setIsFeedbackOpen(true)}
           >
             Feedback
           </Button>
         </Flex>
 
-        {/* Assignments Tab */}
-        <Box>
-          <Flex direction="column" gap={6}>
-            {assignments.map((assignment) => (
-              <Box
-                key={assignment.id}
-                bg="white"
-                p={6}
-                borderRadius="lg"
-                boxShadow="lg"
-                _hover={{ transform: "scale(1.05)", transition: "0.3s" }}
-              >
-                <Flex alignItems="center" justifyContent="space-between" gap={4}>
-                  <Flex alignItems="center" gap={4}>
-                    <Icon
-                      as={FaCheckCircle}
-                      color={assignment.isDone ? "green.500" : "gray.300"}
-                      boxSize={6}
-                    />
-                    <Heading size="md" color="#344E41">
-                      {assignment.title}
-                    </Heading>
-                  </Flex>
-                  <Button
-                    colorScheme={assignment.isDone ? "red" : "teal"}
-                    size="sm"
-                    onClick={() => toggleAssignmentStatus(assignment.id)}
-                  >
-                    {assignment.isDone ? "Mark as Undone" : "Mark as Done"}
-                  </Button>
-                </Flex>
-                <Text mt={2} color="gray.600">
-                  {assignment.description}
-                </Text>
-                {assignment.isDone && (
-                  <Text mt={2} color="green.500" fontWeight="bold">
-                    This assignment is completed!
+        {/* Updated Assignments Tab */}
+        <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={6}>
+          {assignments.map((assignment) => (
+            <Box
+              key={assignment.id}
+              bg="white"
+              p={6}
+              borderRadius="xl"
+              boxShadow="lg"
+              _hover={{ transform: "translateY(-5px)", transition: "0.3s" }}
+              position="relative"
+              overflow="hidden"
+            >
+              {/* Assignment Header */}
+              <Flex alignItems="center" gap={4}>
+                <Icon
+                  as={FaCheckCircle}
+                  color={assignment.isDone ? "green.500" : "gray.300"}
+                  boxSize={6}
+                />
+                <Box flex="1">
+                  <Heading size="md" color="#344E41">
+                    {assignment.title}
+                  </Heading>
+                  <Text color="gray.600" fontSize="sm">
+                    Due: {assignment.description.split("Due date:")[1]}
                   </Text>
-                )}
+                </Box>
+                <Badge
+                  colorScheme={assignment.isDone ? "green" : "yellow"}
+                  p={2}
+                  borderRadius="md"
+                >
+                  {assignment.isDone ? "Completed" : "In Progress"}
+                </Badge>
+              </Flex>
+
+              {/* Course Materials Section */}
+              <Box mt={4}>
+                <Text fontWeight="bold" color="gray.700" mb={2}>
+                  <Icon as={FaBook} color="blue.500" mr={2} />
+                  Course Materials:
+                </Text>
+                <VStack align="stretch" spacing={2}>
+                  {courseMaterials
+                    .filter(material => material.assignmentId === assignment.id)
+                    .map(material => (
+                      <Flex
+                        key={material.id}
+                        p={2}
+                        bg="gray.50"
+                        borderRadius="md"
+                        justify="space-between"
+                        align="center"
+                        _hover={{ bg: 'gray.100' }}
+                      >
+                        <Flex align="center" gap={2}>
+                          <Icon as={material.icon} color="gray.600" />
+                          <VStack align="start" spacing={0}>
+                            <Text fontSize="sm" fontWeight="medium">
+                              {material.name}
+                            </Text>
+                            <Text fontSize="xs" color="gray.500">
+                              {material.size}
+                            </Text>
+                          </VStack>
+                        </Flex>
+                        <IconButton
+                          icon={<FaDownload />}
+                          size="sm"
+                          colorScheme="blue"
+                          variant="ghost"
+                          onClick={() => handleDownload(material)}
+                          aria-label="Download material"
+                        />
+                      </Flex>
+                    ))}
+                </VStack>
               </Box>
-            ))}
-          </Flex>
-        </Box>
+
+              {/* Materials Section */}
+              <Box mt={4}>
+                <Text fontWeight="bold" color="gray.700" mb={2}>
+                  <Icon as={FaLightbulb} color="yellow.500" mr={2} />
+                  Learning Materials:
+                </Text>
+                <SimpleGrid columns={2} spacing={2}>
+                  {assignment.materials.map((material) => (
+                    <Button
+                      key={material.id}
+                      size="sm"
+                      variant="outline"
+                      colorScheme={material.isComplete ? "green" : "gray"}
+                      onClick={() => toggleMaterialStatus(assignment.id, material.id)}
+                      leftIcon={<Icon as={material.isComplete ? FaRegThumbsUp : FaFolder} />}
+                    >
+                      {material.name}
+                    </Button>
+                  ))}
+                </SimpleGrid>
+              </Box>
+
+              {/* Upload Section */}
+              <Box mt={4} p={4} bg="gray.50" borderRadius="md">
+                <Flex direction="column" gap={2}>
+                  <Flex justify="space-between" align="center">
+                    <Button
+                      leftIcon={<FaUpload />}
+                      colorScheme="blue"
+                      onClick={() => handleFileUpload(assignment.id)}
+                      isDisabled={assignment.uploadedFile}
+                      size="sm"
+                    >
+                      Upload Assignment
+                    </Button>
+                    {assignment.uploadedFile && (
+                      <Button
+                        size="sm"
+                        colorScheme="red"
+                        variant="ghost"
+                        onClick={() => handleRemoveFile(assignment.id)}
+                        leftIcon={<FaTrash />}
+                      >
+                        Remove
+                      </Button>
+                    )}
+                  </Flex>
+                  {assignment.uploadedFile && (
+                    <Text color="green.500" fontSize="sm">
+                      ✓ {assignment.uploadedFile} ({assignment.fileSize})
+                      <br />
+                      Uploaded: {assignment.uploadDate}
+                    </Text>
+                  )}
+                  <Text fontSize="xs" color="gray.500">
+                    Accepted: .pdf, .doc, .docx (Max 10MB)
+                  </Text>
+                </Flex>
+              </Box>
+            </Box>
+          ))}
+        </SimpleGrid>
 
         {/* Profile Tab */}
         <Box mt={8}>
