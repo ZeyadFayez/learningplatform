@@ -1,35 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, HStack, Heading, Text } from "@chakra-ui/react";
 import icon from "./icons8-logo-50.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link as RouterLink } from "react-router-dom";
+import { loginUser } from './axios';
 
 const LoginPage = () => {
   const navigate = useNavigate();
+  const [loginError, setLoginError] = useState(null);
 
-  
   const validationSchema = Yup.object({
     username: Yup.string()
       .min(3, "Username must be at least 3 characters")
       .required("Username is required"),
     password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
+      .min(4, "Password must be at least 6 characters")
       .required("Password is required"),
   });
-
 
   const initialValues = {
     username: "",
     password: "",
   };
 
-  //  submission handler
-  const handleSubmit = (values) => {
-    console.log("Form submitted:", values);
-    alert("Login successful!");
-    navigate("/homepage");
+  const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
+    try {
+      const response = await loginUser({
+        username: values.username,
+        password: values.password
+      });
+
+      
+      localStorage.setItem('token', response.token);
+      
+    
+      setLoginError(null);
+      
+      console.log("Login successful:", response);
+      navigate("/homepage");
+    } catch (error) {
+      if (error.response) {
+        // Handle specific error cases
+        switch (error.response.status) {
+          case 401:
+            setFieldError('password', 'Invalid username or password');
+            break;
+          case 404:
+            setFieldError('username', 'User not found');
+            break;
+          default:
+            setLoginError(error.response.data.message || 'Login failed');
+        }
+      } else {
+        setLoginError('Network error. Please try again.');
+      }
+      console.error('Login error:', error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -64,8 +94,14 @@ const LoginPage = () => {
             validationSchema={validationSchema}
             onSubmit={handleSubmit}
           >
-            {({ submitForm }) => (
+            {({ isSubmitting }) => (
               <Form>
+                {loginError && (
+                  <div style={{ color: "red", marginBottom: "10px", textAlign: "center" }}>
+                    {loginError}
+                  </div>
+                )}
+                
                 {/* Username Field */}
                 <Field
                   type="text"
@@ -111,7 +147,8 @@ const LoginPage = () => {
                     variant="outline"
                     size="lg"
                     borderRadius="20px"
-                    onClick={submitForm} // Trigger form validation and submission
+                    type="submit"
+                    isLoading={isSubmitting}
                   >
                     Login
                   </Button>
