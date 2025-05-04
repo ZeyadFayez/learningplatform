@@ -76,21 +76,21 @@ const CourseMain = ({ course }) => {
   // If no course is selected, show available courses
   if (!course) {
     return (
-      <Box p={8}>
+      <Box p={8} bg="white" borderRadius="xl" boxShadow="lg">
         <Heading mb={6} color="#344E41">Available Courses</Heading>
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={6}>
           {availableCourses.map(course => (
             <Box
               key={course.id}
-              bg="white"
+              bg="#f2e8cf"
               p={6}
               borderRadius="lg"
               boxShadow="md"
               _hover={{ transform: "translateY(-4px)", boxShadow: "lg" }}
               transition="all 0.3s"
             >
-              <Heading size="md" mb={2}>{course.title}</Heading>
-              <Text color="gray.600" mb={4}>{course.description}</Text>
+              <Heading size="md" mb={2} color="#344E41">{course.title}</Heading>
+              <Text color="#344E41" mb={4}>{course.description}</Text>
               <Flex justify="space-between" align="center" mb={4}>
                 <Badge colorScheme={
                   course.level === 'beginner' ? 'green' :
@@ -98,9 +98,16 @@ const CourseMain = ({ course }) => {
                 }>
                   {course.level}
                 </Badge>
-                <Text color="gray.600">{course.duration}</Text>
+                <Text color="#344E41">{course.duration}</Text>
               </Flex>
-              <Button colorScheme="green" size="sm" width="full">
+              <Button 
+                bg="#588157"
+                color="white"
+                _hover={{ bg: "#3a5a40" }}
+                size="sm" 
+                width="full"
+                onClick={() => handleEnroll(course.id)}
+              >
                 Learn More
               </Button>
             </Box>
@@ -132,7 +139,7 @@ const CourseMain = ({ course }) => {
 
       <Box mt={8}>
         <Heading size="md" mb={4}>Learning Objectives</Heading>
-        {course.learningObjectives?.map((objective, index) => (
+        {course.learningObjectives && course.learningObjectives.map((objective, index) => (
           <Flex key={index} align="center" mb={2}>
             <Icon as={FaCheckCircle} color="green.500" mr={2} />
             <Text>{objective}</Text>
@@ -144,10 +151,10 @@ const CourseMain = ({ course }) => {
       <Box mt={8}>
         <Heading size="md" mb={6}>Course Modules</Heading>
         <VStack spacing={0} align="stretch">
-          {course.modules?.map((module, index) => (
+          {course.modules && course.modules.map((module, index) => (
             <Box key={index} position="relative" pl={10} pb={8}>
               {/* Vertical Line */}
-              {index !== course.modules.length - 1 && (
+              {index !== (course.modules.length - 1) && (
                 <Box
                   position="absolute"
                   left="20px"
@@ -185,7 +192,7 @@ const CourseMain = ({ course }) => {
                 
                 {/* Lessons */}
                 <VStack align="stretch" spacing={2}>
-                  {module.lessons?.map((lesson, lessonIndex) => (
+                  {module.lessons && module.lessons.map((lesson, lessonIndex) => (
                     <Flex
                       key={lessonIndex}
                       bg="gray.50"
@@ -215,7 +222,7 @@ const CourseMain = ({ course }) => {
       <Box mt={8}>
         <Heading size="md" mb={4}>Course Resources</Heading>
         <VStack align="stretch" spacing={2}>
-          {course.resources?.map((resource, index) => (
+          {course.resources && course.resources.map((resource, index) => (
             <Flex
               key={index}
               align="center"

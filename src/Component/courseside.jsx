@@ -9,56 +9,107 @@ import {
   Input,
   Stack,
   Flex,
+  Progress,
 } from '@chakra-ui/react';
+
+// Error boundary component
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error("Course sidebar error:", error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <Box
+          w="300px"
+          bg="#588157"
+          p={4}
+          borderRadius="lg"
+          boxShadow="xl"
+          color="white"
+        >
+          <Heading size="md" mb={4}>Something went wrong</Heading>
+          <Text>We're having trouble loading your courses.</Text>
+          <Button 
+            mt={4} 
+            colorScheme="green" 
+            onClick={() => this.setState({ hasError: false })}
+          >
+            Try again
+          </Button>
+        </Box>
+      );
+    }
+    return this.props.children;
+  }
+}
 
 const CourseSidebar = ({ courses = [], activeCourse, setActiveCourse }) => {
   const [filter, setFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [showProgress, setShowProgress] = useState(true);
 
-  const filteredCourses = courses.filter(course => 
-    (filter === 'all' || course.level === filter) &&
-    course.title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Simplified filtering logic
+  const filteredCourses = courses.filter(course => {
+    const matchesFilter = filter === 'all' || (course.level && course.level === filter);
+    const matchesSearch = !searchQuery || 
+      (course.title && course.title.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesFilter && matchesSearch;
+  });
 
-  const motivationalQuotes = [
-    "Learning is a journey, not a destination.",
-    "Every expert was once a beginner.",
-    "Small progress is still progress.",
-    "Stay curious, keep learning.",
+  // Simplified tips array
+  const tips = [
+    "Regular breaks help retention",
+    "Practice immediately",
+    "Share knowledge",
+    "Set goals",
   ];
 
-  const randomQuote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+  const tipIndex = Math.floor(Math.random() * tips.length);
 
   return (
-    <Box
-      w="300px"
-      bg="#588157"
-      p={4}
-      borderRadius="lg"
-      boxShadow="xl"
-      color="white"
-      position="sticky"
-      top="20px"
-      h="calc(100vh - 40px)"
-      overflowY="auto"
-      transition="all 0.3s"
-      _hover={{ boxShadow: "2xl" }}
-    >
-      <VStack spacing={6} align="stretch">
-        {/* Search Section */}
-        <Box>
-          <Input
-            placeholder="Search courses..."
-            bg="white"
-            color="black"
-            onChange={(e) => setSearchQuery(e.target.value)}
-            mb={4}
-          />
-        </Box>
+    <ErrorBoundary>
+      <Box
+        w="300px"
+        bg="#588157"
+        p={4}
+        borderRadius="lg"
+        boxShadow="xl"
+        color="white"
+        position="sticky"
+        top="20px"
+        h="calc(100vh - 40px)"
+        overflowY="auto"
+      >
+        <VStack spacing={6} align="stretch">
+          {/* Header */}
+          <Flex justify="space-between" align="center">
+            <Heading size="md">My Courses</Heading>
+            <Badge colorScheme="green">{courses.length || 0}</Badge>
+          </Flex>
 
-        {/* Course Levels */}
-        <Box>
-          <Text mb={2} fontWeight="bold">Course Levels:</Text>
+          {/* Search with null check */}
+          <Box>
+            <Input
+              placeholder="Find course..."
+              bg="white"
+              color="black"
+              onChange={(e) => setSearchQuery(e?.target?.value || '')}
+              _placeholder={{ color: 'gray.500' }}
+            />
+          </Box>
+
+          {/* Course Filters */}
           <Stack direction="row" spacing={2}>
             <Button
               size="sm"
@@ -82,50 +133,70 @@ const CourseSidebar = ({ courses = [], activeCourse, setActiveCourse }) => {
               Advanced
             </Button>
           </Stack>
-        </Box>
 
-        {/* Motivational Quote */}
-        <Box
-          bg="#344E41"
-          p={4}
-          borderRadius="lg"
-          _hover={{ transform: "translateY(-2px)" }}
-          transition="all 0.3s"
-        >
-          <Text fontStyle="italic" textAlign="center">
-            "{randomQuote}"
-          </Text>
-        </Box>
+          {/* Course List with null checks */}
+          <VStack spacing={4} align="stretch">
+            {Array.isArray(filteredCourses) && filteredCourses.map(course => (
+              <Box
+                key={course.id || Math.random()}
+                bg={activeCourse?.id === course.id ? "#344E41" : "#A3B18A"}
+                p={4}
+                borderRadius="md"
+                cursor="pointer"
+                onClick={() => setActiveCourse(course)}
+                _hover={{ transform: "translateY(-2px)" }}
+              >
+                <Heading size="sm" mb={2}>{course.title || 'Untitled Course'}</Heading>
+                {course.description && (
+                  <Text fontSize="sm" noOfLines={2} mb={3}>
+                    {course.description}
+                  </Text>
+                )}
+                <Flex direction="column" gap={2}>
+                  {course.level && (
+                    <Badge alignSelf="flex-start" colorScheme={course.level === 'beginner' ? 'green' : 'purple'}>
+                      {course.level}
+                    </Badge>
+                  )}
+                  {showProgress && course.progress !== undefined && (
+                    <Box w="100%">
+                      <Progress
+                        value={course.progress}
+                        size="sm"
+                        colorScheme="green"
+                        borderRadius="full"
+                        bg="white"
+                      />
+                      <Text fontSize="xs" mt={1} textAlign="right">
+                        {course.progress}%
+                      </Text>
+                    </Box>
+                  )}
+                </Flex>
+              </Box>
+            ))}
+          </VStack>
 
-        {/* Course List */}
-        <VStack spacing={4} align="stretch">
-          {filteredCourses.map(course => (
-            <Box
-              key={course.id}
-              bg={activeCourse?.id === course.id ? "#344E41" : "#A3B18A"}
-              p={4}
-              borderRadius="md"
-              cursor="pointer"
-              onClick={() => setActiveCourse(course)}
-              transition="all 0.3s"
-              _hover={{ transform: "translateY(-2px)", boxShadow: "md" }}
-            >
-              <Heading size="sm" mb={2}>{course.title}</Heading>
-              <Text fontSize="sm" noOfLines={2} mb={2}>
-                {course.description}
-              </Text>
-              <Flex justify="space-between" align="center">
-                <Badge colorScheme={course.level === 'beginner' ? 'green' : 'purple'}>
-                  {course.level}
-                </Badge>
-                <Text fontSize="sm">{course.duration}</Text>
-              </Flex>
-            </Box>
-          ))}
+          {/* Tip Box */}
+          <Box bg="#344E41" p={4} borderRadius="lg">
+            <Text fontWeight="bold">Tip:</Text>
+            <Text>{tips[tipIndex]}</Text>
+          </Box>
+
+          {/* Progress Toggle */}
+          <Button
+            colorScheme="green"
+            variant="outline"
+            onClick={() => setShowProgress(!showProgress)}
+            size="sm"
+          >
+            {showProgress ? 'Hide Progress' : 'Show Progress'}
+          </Button>
         </VStack>
-      </VStack>
-    </Box>
+      </Box>
+    </ErrorBoundary>
   );
 };
 
+// Make sure to export the component correctly
 export default CourseSidebar;

@@ -24,7 +24,7 @@ const Course = () => {
             duration: "8 weeks",
             enrolled: 1234,
             rating: 4.8,
-            thumbnail: "https://via.placeholder.com/300x200?text=React+Basics", // Added real placeholder
+            thumbnail: "https://via.placeholder.com/300x200?text=React+Basics",
             learningObjectives: [
                 "Understand React fundamentals",
                 "Build interactive UIs",
@@ -56,7 +56,7 @@ const Course = () => {
             duration: "10 weeks",
             enrolled: 856,
             rating: 4.9,
-            thumbnail: "https://via.placeholder.com/300x200?text=Advanced+React", // Added real placeholder
+            thumbnail: "https://via.placeholder.com/300x200?text=Advanced+React",
             learningObjectives: [
                 "Implement advanced React patterns",
                 "Optimize React applications",
@@ -93,7 +93,7 @@ const Course = () => {
                 <CourseSidebar
                     courses={courses}
                     activeCourse={activeCourse}
-                    setActiveCourse={handleCourseSelect}
+                    setActiveCourse={setActiveCourse}
                 />
                 <Box flex="1">
                     <CourseMain course={activeCourse} />
