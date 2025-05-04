@@ -29,7 +29,9 @@ const header = () => {
       </Stack>
       <Flex flex="1" justifyContent="flex-end" alignItems="center" gap={4}>
         <Avatar.Root size="lg">
+          <RouterLink   to={"/homepage/Dashboard/assigment/studenthub/profile"} >
           <Avatar.Fallback />
+          </RouterLink>
         </Avatar.Root>
         
         <Menu.Root>
@@ -52,6 +54,11 @@ const header = () => {
           </RouterLink>
         </Box>
         <Box mb={5} mt={2}>
+          <RouterLink to={"/homepage/Dashboard/course"} style={{ textDecoration: "none", color: "white", fontWeight: "bold" }}>
+            Course
+          </RouterLink>
+        </Box>
+        <Box mb={5} mt={2}>
           <RouterLink to={"/homepage/Dashboard/assigment"} style={{ textDecoration: "none", color: "white", fontWeight: "bold" }}>
             Assignment
           </RouterLink>
@@ -59,8 +66,20 @@ const header = () => {
 
 
         <Box mb={5} mt={2}>
-          <RouterLink to={"/homepage/Dashboard/StudentHub"} style={{ textDecoration: "none", color: "white", fontWeight: "bold" }}>
+          <RouterLink to={"/homepage/Dashboard/assigment/studenthub"} style={{ textDecoration: "none", color: "white", fontWeight: "bold" }}>
           StudentHub
+          </RouterLink>
+        </Box>
+
+        <Box mb={5} mt={2}>
+          <RouterLink to={"/homepage/Dashboard/assigment/Feedback"} style={{ textDecoration: "none", color: "white", fontWeight: "bold" }}>
+          Feedback
+          </RouterLink>
+        </Box>
+
+        <Box mb={5} mt={2}>
+          <RouterLink to={"/homepage/Dashboard/assigment/studenthub/profile"} style={{ textDecoration: "none", color: "white", fontWeight: "bold" }}>
+          Profile
           </RouterLink>
         </Box>
 
@@ -75,18 +94,7 @@ const header = () => {
       </Portal>
     </Menu.Root>
 
-        <RouterLink to="/" style={{ color: "white", textDecoration: "none" }} >
-          Log Out
-        </RouterLink>
-        <RouterLink to="/homepage/Dashboard" style={{ color: "white", textDecoration: "none" }} >
-          Dashboard
-        </RouterLink>
-        <RouterLink to="/homepage/Dashboard/assigment" style={{ color: "white", textDecoration: "none" }} >
-        Assigment
-        </RouterLink>
-        <RouterLink to="/homepage/Dashboard/feedback" style={{ color: "white", textDecoration: "none" }} >
-          Feedback
-        </RouterLink>
+       
       </Flex>
     </Flex>
   );

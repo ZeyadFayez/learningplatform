@@ -58,7 +58,7 @@ const homemain = () => {
       
 
       
-      <Container maxW="1200px" flex="1" px={4} ml={-0.5}>
+      <Container maxW="1200px" flex="1" px={4} ml={-0.5} mb={-100} mt={-100}>
         <Flex
           wrap="wrap" // Allow cards to wrap to the next row
           justify="space-between" // Center the cards horizontally
@@ -82,11 +82,11 @@ const homemain = () => {
                 <Avatar.Fallback name="Nue Camp" />
               </Avatar.Root>
               <Card.Title mt="2" color="#22333b">
-                UI/UX
+              Node.js
               </Card.Title>
               <Card.Description color="#22333b">
-                This is the card body. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Curabitur nec odio vel dui euismod fermentum.
+                
+              Master the fundamentals of Node.js and build scalable, server-side applications. Learn how to handle APIs, manage databases, and create real-time web apps using JavaScript.
               </Card.Description>
             </Card.Body>
             <Card.Footer justifyContent="flex-end">
@@ -118,8 +118,7 @@ const homemain = () => {
                 UI/UX
               </Card.Title>
               <Card.Description color="#22333b">
-                This is the card body. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Curabitur nec odio vel dui euismod fermentum.
+              Learn the principles of user interface (UI) and user experience (UX) design to craft intuitive and engaging digital products. From wireframing to prototyping.
               </Card.Description>
             </Card.Body>
             <Card.Footer justifyContent="flex-end">
@@ -148,11 +147,10 @@ const homemain = () => {
                 <Avatar.Fallback name="Nue Camp" />
               </Avatar.Root>
               <Card.Title mt="2" color="#22333b">
-                UI/UX
+                Advanced CSS
               </Card.Title>
               <Card.Description color="#22333b">
-                This is the card body. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Curabitur nec odio vel dui euismod fermentum.
+              Take your CSS skills to the next level with advanced techniques like animations, responsive design, flexbox, and grid layouts. Create visually stunning and modern web designs with ease.
               </Card.Description>
             </Card.Body>
             <Card.Footer justifyContent="flex-end">
@@ -181,11 +179,10 @@ const homemain = () => {
                 <Avatar.Fallback name="Nue Camp" />
               </Avatar.Root>
               <Card.Title mt="2" color="#22333b">
-                UI/UX
+                OOP
               </Card.Title>
               <Card.Description color="#22333b">
-                This is the card body. Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit. Curabitur nec odio vel dui euismod fermentum.
+              Understand the core concepts of OOP, including classes, objects, inheritance, and polymorphism. 
               </Card.Description>
             </Card.Body>
             <Card.Footer justifyContent="flex-end">
@@ -205,7 +202,7 @@ const homemain = () => {
          direction="column" 
          bg="#b6ad90" 
          color="white" 
-         p={4} 
+         p={10} 
          h="auto" // Adjust height based on content
          W="auto"
          borderRadius="md" 
@@ -214,8 +211,8 @@ const homemain = () => {
          flex="1" // Take up less space compared to the cards
          ml={1250}
          mb={150}
-         mt={-780}
-         width="600px"
+         mt={-680}
+         width="900px"
          position="sticky"
          shrink={100}
          data-state="open"
@@ -229,33 +226,11 @@ const homemain = () => {
          }}
          >
         <Box  bg="#b6ad90"  h="500px" fontWeight="bold" fontSize="lg">
-          This is the new Box content.
+          coming soon
         </Box>
         
         </Flex>
-        <Box
-        bg="#a3b18a"
-        p={4}
-        justifyContent="center"
-        h="150px"
-        borderRadius="md"
-        boxShadow="lg"
-        mb={140}
-        data-state="open"
-        _open={{
-          animationName: "fade-in, scale-in",
-          animationDuration: "2000ms",
-        }}
-        _closed={{
-          animationName: "fade-out, scale-out",
-          animationDuration: "2000ms",
-        }}
-        
-      >
-        <Box color="white" fontWeight="bold" fontSize="lg" textAlign="center" mb={-100}> 
-          Top Section Content
-        </Box>
-      </Box>
+       
 
     </Flex>
 
