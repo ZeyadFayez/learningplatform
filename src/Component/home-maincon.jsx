@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar, Button, Card, Flex, Box, Container, Heading, Text, Alert, Link, Stack } from "@chakra-ui/react";
+import { Avatar, Button, Card, Flex, Box, Container, Heading, Text, Alert, Link, Breadcrumb, Accordion, Span } from "@chakra-ui/react";
 
 const homemain = () => {
   return (
@@ -210,10 +210,10 @@ const homemain = () => {
          _expanded={100}
          flex="1" // Take up less space compared to the cards
          ml={1250}
-         mb={150}
-         mt={-500}
-         maxW="1200px"
-         maxH={"100vh"}
+         mb={250}
+         mt={-900}
+         maxW="1700px"
+         maxH={"60vh"}
          position="sticky"
          shrink={100}
          data-state="open"
@@ -232,17 +232,35 @@ const homemain = () => {
           
         </Alert.Indicator>
         <Alert.Content color="fg">
-          <Alert.Title>Black Friday Sale (20% off)</Alert.Title>
+          <Alert.Title>small effort is still effort</Alert.Title>
           <Alert.Description>
-            Upgrade your plan to get access to the sale.
+           keep up the good work! Remember, every small step counts.
           </Alert.Description>
         </Alert.Content>
-        <Link alignSelf="center" fontWeight="medium">
-          Upgrade
-        </Link>
+    
       </Alert.Root>
+      <Accordion.Root collapsible defaultValue={["b"]} mt={100} size={"lg"} variant={"enclosed"}>
+      {items.map((item, index) => (
+        <Accordion.Item key={index} value={item.value}>
+          <Accordion.ItemTrigger>
+            <Span flex="1">{item.title}</Span>
+            <Accordion.ItemIndicator />
+          </Accordion.ItemTrigger>
+          <Accordion.ItemContent>
+            <Accordion.ItemBody>{item.text}</Accordion.ItemBody>
+          </Accordion.ItemContent>
+        </Accordion.Item>
+      ))}
+    </Accordion.Root>
+  
+
+
+
+
+      
+
         </Box>
-        
+       
         </Flex>
        
 
@@ -251,5 +269,12 @@ const homemain = () => {
     
   );
 };
+
+const items = [
+  { value: "a", title: " Remember to practice HTML & CSS", text: "These are the building blocks of every website. Try making a mini portfolio page this week!" },
+  { value: "b", title: "JS variables still confusing?", text: "Revisit let, const, and var. Write a small script—maybe a random joke generator?" },
+  { value: "c", title: "React = components, components, components", text: "Think Lego blocks. Build small pieces first, like a button or card, then piece them together." },
+  { value: "d", title: "Third Debugging tip of the week", text: "console.log() is your best friend—but don’t forget browser dev tools!" },
+]
 
 export default homemain;

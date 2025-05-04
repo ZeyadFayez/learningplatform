@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { signupUser } from "./axios";
 
 const CreateUser = () => {
   const navigate = useNavigate();
+  const [signupError, setSignupError] = useState(null);
 
   const validationSchema = Yup.object({
     username: Yup.string()
@@ -24,10 +26,44 @@ const CreateUser = () => {
     retypepassword: "",
   };
 
-  const handleSubmit = (values) => {
-    console.log("Form submitted:", values);
-    alert("Sign up successful!");
-    navigate("/homepage");
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      // Clear any previous errors
+      setSignupError(null);
+
+      // Remove retypepassword before sending to API
+      const { retypepassword, ...userData } = values;
+
+      // Call signup API
+      const response = await signupUser(userData);
+
+      // Store the token if your API returns one
+      if (response.token) {
+        localStorage.setItem('token', response.token);
+      }
+
+      console.log("Signup successful:", response);
+      navigate("/homepage");
+    } catch (error) {
+      if (error.response) {
+        // Handle specific error cases
+        switch (error.response.status) {
+          case 409:
+            setSignupError('Username already exists');
+            break;
+          case 400:
+            setSignupError(error.response.data.message || 'Invalid input');
+            break;
+          default:
+            setSignupError('Signup failed. Please try again.');
+        }
+      } else {
+        setSignupError('Network error. Please try again.');
+      }
+      console.error('Signup error:', error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -38,8 +74,14 @@ const CreateUser = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {() => (
+          {({ isSubmitting }) => (
             <Form>
+              {signupError && (
+                <div style={{ color: "red", marginBottom: "10px", textAlign: "center" }}>
+                  {signupError}
+                </div>
+              )}
+              
               <label htmlFor="username" style={styles.label}>
                 Create Username
               </label>
@@ -89,8 +131,12 @@ const CreateUser = () => {
               />
 
               <div style={styles.buttonContainer}>
-                <button type="submit" style={styles.createUserButton}>
-                  Create User
+                <button 
+                  type="submit" 
+                  style={styles.createUserButton}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? 'Creating...' : 'Create User'}
                 </button>
               </div>
             </Form>
