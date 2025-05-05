@@ -1,12 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { signupUser } from "./axios";
+import { signupUser, isAuthenticated } from "./axios";
 
 const CreateUser = () => {
   const navigate = useNavigate();
   const [signupError, setSignupError] = useState(null);
+
+  // Check if user is already logged in
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/homepage");
+    }
+  }, [navigate]);
 
   const validationSchema = Yup.object({
     username: Yup.string()
@@ -37,29 +44,13 @@ const CreateUser = () => {
       // Call signup API
       const response = await signupUser(userData);
 
-      // Store the token if your API returns one
-      if (response.token) {
-        localStorage.setItem('token', response.token);
-      }
+      // Store the token
+      localStorage.setItem('token', response.token);
 
       console.log("Signup successful:", response);
       navigate("/homepage");
     } catch (error) {
-      if (error.response) {
-        // Handle specific error cases
-        switch (error.response.status) {
-          case 409:
-            setSignupError('Username already exists');
-            break;
-          case 400:
-            setSignupError(error.response.data.message || 'Invalid input');
-            break;
-          default:
-            setSignupError('Signup failed. Please try again.');
-        }
-      } else {
-        setSignupError('Network error. Please try again.');
-      }
+      setSignupError(error.message || 'Signup failed. Please try again.');
       console.error('Signup error:', error);
     } finally {
       setSubmitting(false);

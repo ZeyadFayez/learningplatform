@@ -1,22 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, HStack, Heading, Text } from "@chakra-ui/react";
 import icon from "./icons8-logo-50.png";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { Link as RouterLink } from "react-router-dom";
-import { loginUser } from './axios';
+import { loginUser, isAuthenticated } from './axios';
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [loginError, setLoginError] = useState(null);
+
+  // Check if user is already logged in
+  useEffect(() => {
+    if (isAuthenticated()) {
+      navigate("/homepage");
+    }
+  }, [navigate]);
 
   const validationSchema = Yup.object({
     username: Yup.string()
       .min(3, "Username must be at least 3 characters")
       .required("Username is required"),
     password: Yup.string()
-      .min(4, "Password must be at least 6 characters")
+      .min(4, "Password must be at least 4 characters")
       .required("Password is required"),
   });
 
@@ -25,37 +32,21 @@ const LoginPage = () => {
     password: "",
   };
 
-  const handleSubmit = async (values, { setSubmitting, setFieldError }) => {
+  const handleSubmit = async (values, { setSubmitting }) => {
     try {
+      setLoginError(null);
       const response = await loginUser({
         username: values.username,
         password: values.password
       });
-
       
+      // Store token in localStorage
       localStorage.setItem('token', response.token);
-      
-    
-      setLoginError(null);
       
       console.log("Login successful:", response);
       navigate("/homepage");
     } catch (error) {
-      if (error.response) {
-        // Handle specific error cases
-        switch (error.response.status) {
-          case 401:
-            setFieldError('password', 'Invalid username or password');
-            break;
-          case 404:
-            setFieldError('username', 'User not found');
-            break;
-          default:
-            setLoginError(error.response.data.message || 'Login failed');
-        }
-      } else {
-        setLoginError('Network error. Please try again.');
-      }
+      setLoginError(error.message || 'Login failed. Please try again.');
       console.error('Login error:', error);
     } finally {
       setSubmitting(false);
@@ -65,7 +56,7 @@ const LoginPage = () => {
   return (
     <div style={styles.body}>
       <div style={styles.container}>
-       
+        {/* Left section remains the same */}
         <div style={styles.leftSection}>
           <div style={styles.icon}>
             <img src={icon} alt="icon" style={styles.svg} />
@@ -76,9 +67,18 @@ const LoginPage = () => {
           <Text color="#344E41" mt={4}>
             Please log in to continue.
           </Text>
+          
+          {/* Add demo credentials info */}
+          <div style={styles.demoCredentials}>
+            <Text color="#344E41" fontWeight="bold" fontSize="sm" mt={6}>
+              Demo Credentials:
+            </Text>
+            <Text color="#344E41" fontSize="sm">Username: student</Text>
+            <Text color="#344E41" fontSize="sm">Password: password</Text>
+          </div>
         </div>
 
-        
+        {/* Right section remains the same */}
         <div style={styles.rightSection}>
           <Heading color="#DAD7CD" fontWeight="bold" size={"3xl"}>
             fritz
@@ -229,6 +229,13 @@ const styles = {
     fontSize: "16px",
     color: "#344E41",
   },
+  demoCredentials: {
+    marginTop: "20px",
+    padding: "15px",
+    backgroundColor: "#A3B18A",
+    borderRadius: "10px",
+    textAlign: "center",
+  }
 };
 
 export default LoginPage;
